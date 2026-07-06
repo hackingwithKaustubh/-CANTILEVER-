@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-sans transition-colors duration-300;
+  }
+}
+
+/* Glassmorphism Styles */
+.glass {
+  @apply backdrop-blur-md bg-white/70 dark:bg-slate-900/70 border border-slate-200/50 dark:border-slate-800/50;
+}
+
+.glass-card {
+  @apply backdrop-blur-md bg-white/80 dark:bg-slate-900/80 border border-slate-200/40 dark:border-slate-800/40 shadow-xl shadow-slate-100/10 dark:shadow-black/20;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-slate-100 dark:bg-slate-900;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-slate-300 dark:bg-slate-700 rounded-full hover:bg-slate-400 dark:hover:bg-slate-600 transition-colors;
+}
+
+/* Gradient Background Text */
+.text-gradient-primary {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-violet-600 to-indigo-600 dark:from-violet-400 dark:to-indigo-400;
+}
+
+.text-gradient-sunset {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-amber-500 via-rose-500 to-violet-600;
+}
+
+/* Pulse Animation for Loader */
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.7);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px rgba(139, 92, 246, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(139, 92, 246, 0);
+  }
+}
+
+.pulse-ring-loader {
+  animation: pulse-ring 2s infinite;
+}
+
+/* Reading Progress Bar */
+.reading-progress-bar {
+  @apply fixed top-0 left-0 h-1 bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-600 z-50 transition-all duration-100;
+}
