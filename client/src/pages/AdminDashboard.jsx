@@ -91,16 +91,11 @@ const AdminDashboard = () => {
 
   const handleApproveComment = async (commentId) => {
     try {
-      // Approving removes the reported flag (puts isReported back to false)
-      const res = await api.put(`/comments/${commentId}`, { content: undefined }); // Trigger edit check or custom save
-      // Wait, let's write a simple helper or just toggle reported locally to clean up moderation.
-      // Since comments moderation deletes or ignores, to approve (dismiss report), we can hit put or custom endpoint.
-      // For simplicity, let's just delete the comment if bad, or if good, we delete it from reports by editing/saving.
-      // Actually, since we put content: undefined, let's make an endpoint or handle it by resetting comment.
-      // Let's implement dismissing locally or delete comment. If dismissing, we can delete the comment or just remove from list.
-      // Let's delete comment directly if offensive, or dismiss from reports list.
-      setReports(prev => prev.filter(c => c._id !== commentId));
-      toast.success('Report dismissed successfully');
+      const res = await api.put(`/admin/reports/${commentId}/dismiss`);
+      if (res.data.success) {
+        setReports(prev => prev.filter(c => c._id !== commentId));
+        toast.success('Report dismissed successfully');
+      }
     } catch (err) {
       toast.error('Error dismissing report');
     }

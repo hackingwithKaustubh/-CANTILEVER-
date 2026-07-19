@@ -5,7 +5,8 @@ const {
   getAllUsers,
   getReportedComments,
   toggleUserRole,
-  deleteUser
+  deleteUser,
+  dismissReportedComment
 } = require('../controllers/adminController');
 const { protect, admin } = require('../middleware/authMiddleware');
 
@@ -17,5 +18,6 @@ router.get('/users', getAllUsers);
 router.get('/reports', getReportedComments);
 router.put('/users/:id/role', toggleUserRole);
 router.delete('/users/:id', deleteUser);
+router.put('/reports/:id/dismiss', dismissReportedComment);
 
 module.exports = router;

@@ -4,10 +4,12 @@ import { useAuth } from '../context/AuthContext';
 import { toast } from 'react-toastify';
 import api from '../services/api';
 import { BlogDetailSkeleton } from '../components/SkeletonLoader';
+import AuthorCard from '../components/AuthorCard';
 import { 
   Heart, Bookmark, Share2, Calendar, Clock, 
   ChevronRight, MessageSquare, Trash2, Edit3, 
-  Send, Flag, Reply, CornerDownRight, ThumbsUp
+  Send, Flag, Reply, CornerDownRight, ThumbsUp,
+  Twitter, Linkedin, MessageCircle, Link as LinkIcon, Copy
 } from 'lucide-react';
 
 const BlogDetails = () => {
@@ -274,6 +276,23 @@ const BlogDetails = () => {
     toast.success('Article link copied to clipboard!');
   };
 
+  const shareOnTwitter = () => {
+    const text = `Check out "${blog.title}" by ${blog.author?.name} on InkFlow 🚀`;
+    const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(window.location.href)}`;
+    window.open(url, '_blank');
+  };
+
+  const shareOnLinkedIn = () => {
+    const url = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`;
+    window.open(url, '_blank');
+  };
+
+  const shareOnWhatsApp = () => {
+    const text = `Check out "${blog.title}" by ${blog.author?.name} on InkFlow`;
+    const url = `https://wa.me/?text=${encodeURIComponent(text + ' ' + window.location.href)}`;
+    window.open(url, '_blank');
+  };
+
   if (loading) return <BlogDetailSkeleton />;
   if (!blog) return <div className="text-center py-20">Post not found.</div>;
 
@@ -333,11 +352,19 @@ const BlogDetails = () => {
                 className="h-12 w-12 rounded-full object-cover border border-slate-100 dark:border-slate-800"
               />
               <div>
-                <p className="text-sm font-bold text-slate-900 dark:text-white">{blog.author?.name}</p>
-                <div className="flex items-center space-x-2 text-xs text-slate-400">
+                <Link to={`/author/${blog.author?.username}`} className="text-sm font-bold text-slate-900 dark:text-white hover:text-violet-600 dark:hover:text-violet-400 transition-colors">
+                  {blog.author?.name}
+                </Link>
+                <div className="flex items-center space-x-2 text-xs text-slate-400 flex-wrap">
                   <span>@{blog.author?.username}</span>
                   <span>•</span>
                   <span className="flex items-center space-x-1"><Calendar className="h-3 w-3" /> <span>{new Date(blog.createdAt).toLocaleDateString()}</span></span>
+                  {blog.author?.location && (
+                    <>
+                      <span>•</span>
+                      <span className="flex items-center space-x-1">📍 <span>{blog.author.location}</span></span>
+                    </>
+                  )}
                 </div>
               </div>
             </div>
@@ -393,11 +420,25 @@ const BlogDetails = () => {
               </div>
 
               {/* Share */}
-              <div className="flex items-center space-x-1 text-slate-400">
+              <div className="flex items-center space-x-1">
+                <button onClick={shareOnTwitter} className="p-2 hover:bg-blue-50 dark:hover:bg-blue-950/20 rounded-xl text-slate-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors" title="Share on Twitter">
+                  <Twitter className="h-4.5 w-4.5" />
+                </button>
+                <button onClick={shareOnLinkedIn} className="p-2 hover:bg-blue-50 dark:hover:bg-blue-950/20 rounded-xl text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" title="Share on LinkedIn">
+                  <Linkedin className="h-4.5 w-4.5" />
+                </button>
+                <button onClick={shareOnWhatsApp} className="p-2 hover:bg-green-50 dark:hover:bg-green-950/20 rounded-xl text-slate-400 hover:text-green-600 dark:hover:text-green-400 transition-colors" title="Share on WhatsApp">
+                  <MessageCircle className="h-4.5 w-4.5" />
+                </button>
                 <button onClick={copyUrlToClipboard} className="p-2 hover:bg-slate-100 dark:hover:bg-slate-850 rounded-xl text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200 transition-colors" title="Copy Link">
-                  <Share2 className="h-4.5 w-4.5" />
+                  <Copy className="h-4.5 w-4.5" />
                 </button>
               </div>
+            </div>
+
+            {/* Author Card */}
+            <div className="border-t border-slate-200/50 dark:border-slate-800/50 pt-12 mt-12">
+              <AuthorCard author={blog.author} />
             </div>
 
             {/* Comments Thread Section */}

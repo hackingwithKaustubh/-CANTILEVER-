@@ -113,6 +113,7 @@ const Navbar = () => {
             <Link to="/" className="text-sm font-medium text-slate-700 hover:text-violet-600 dark:text-slate-300 dark:hover:text-violet-400 transition-colors">Home</Link>
             <Link to="/blogs" className="text-sm font-medium text-slate-700 hover:text-violet-600 dark:text-slate-300 dark:hover:text-violet-400 transition-colors">Blogs</Link>
             <Link to="/categories" className="text-sm font-medium text-slate-700 hover:text-violet-600 dark:text-slate-300 dark:hover:text-violet-400 transition-colors">Categories</Link>
+            <Link to="/contact" className="text-sm font-medium text-slate-700 hover:text-violet-600 dark:text-slate-300 dark:hover:text-violet-400 transition-colors">Contact</Link>
           </div>
 
           {/* Search Bar - Desktop */}
@@ -312,6 +313,7 @@ const Navbar = () => {
           <Link to="/" onClick={() => setIsOpen(false)} className="block px-3 py-2 text-base font-medium text-slate-700 hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-slate-800 rounded-xl transition-colors">Home</Link>
           <Link to="/blogs" onClick={() => setIsOpen(false)} className="block px-3 py-2 text-base font-medium text-slate-700 hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-slate-800 rounded-xl transition-colors">Blogs</Link>
           <Link to="/categories" onClick={() => setIsOpen(false)} className="block px-3 py-2 text-base font-medium text-slate-700 hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-slate-800 rounded-xl transition-colors">Categories</Link>
+          <Link to="/contact" onClick={() => setIsOpen(false)} className="block px-3 py-2 text-base font-medium text-slate-700 hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-slate-800 rounded-xl transition-colors">Contact</Link>
           
           {!user && (
             <div className="pt-4 border-t border-slate-100 dark:border-slate-800 flex flex-col space-y-2">

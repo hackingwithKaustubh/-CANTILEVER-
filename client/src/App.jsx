@@ -12,7 +12,9 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import Blogs from './pages/Blogs';
 import BlogDetails from './pages/BlogDetails';
+import AuthorProfile from './pages/AuthorProfile';
 import Categories from './pages/Categories';
+import Contact from './pages/Contact';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
@@ -71,7 +73,9 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/blogs" element={<Blogs />} />
                 <Route path="/blog/:slug" element={<BlogDetails />} />
+                <Route path="/author/:username" element={<AuthorProfile />} />
                 <Route path="/categories" element={<Categories />} />
+                <Route path="/contact" element={<Contact />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 

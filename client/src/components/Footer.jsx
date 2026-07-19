@@ -64,15 +64,18 @@ const Footer = () => {
             <ul className="space-y-4 text-sm text-slate-400">
               <li className="flex items-center space-x-2.5">
                 <Mail className="h-4.5 w-4.5 text-violet-500" />
-                <span>support@inkflow.io</span>
+                <a href="mailto:support@inkflow.io" className="hover:text-white transition-colors">support@inkflow.io</a>
               </li>
               <li className="flex items-center space-x-2.5">
                 <Phone className="h-4.5 w-4.5 text-violet-500" />
-                <span>+1 (555) 234-5678</span>
+                <a href="tel:+91-11-4567-8900" className="hover:text-white transition-colors">+91-11-4567-8900</a>
               </li>
               <li className="flex items-center space-x-2.5">
                 <MapPin className="h-4.5 w-4.5 text-violet-500" />
-                <span>100 Innovation Way, San Francisco, CA</span>
+                <span>Bangalore, India</span>
+              </li>
+              <li>
+                <Link to="/contact" className="text-violet-400 hover:text-violet-300 transition-colors text-xs font-semibold">→ Contact Us</Link>
               </li>
             </ul>
           </div>

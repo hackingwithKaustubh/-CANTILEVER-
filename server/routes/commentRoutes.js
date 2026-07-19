@@ -9,11 +9,11 @@ const {
   reportComment
 } = require('../controllers/commentController');
 const { protect } = require('../middleware/authMiddleware');
-const { commentValidationRules } = require('../middleware/validationMiddleware');
+const { commentValidationRules, commentUpdateValidationRules } = require('../middleware/validationMiddleware');
 
 router.get('/blog/:blogId', getBlogComments);
 router.post('/', protect, commentValidationRules, createComment);
-router.put('/:id', protect, commentValidationRules, updateComment);
+router.put('/:id', protect, commentUpdateValidationRules, updateComment);
 router.delete('/:id', protect, deleteComment);
 router.post('/:id/like', protect, toggleLikeComment);
 router.post('/:id/report', protect, reportComment);

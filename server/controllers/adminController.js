@@ -143,10 +143,27 @@ const deleteUser = async (req, res) => {
   }
 };
 
+const dismissReportedComment = async (req, res) => {
+  try {
+    const comment = await Comment.findById(req.params.id);
+    if (!comment) {
+      return res.status(404).json({ success: false, message: 'Comment not found' });
+    }
+
+    comment.isReported = false;
+    await comment.save();
+
+    res.status(200).json({ success: true, message: 'Comment report dismissed successfully' });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Server error dismissing comment report' });
+  }
+};
+
 module.exports = {
   getDashboardStats,
   getAllUsers,
   getReportedComments,
   toggleUserRole,
-  deleteUser
+  deleteUser,
+  dismissReportedComment
 };

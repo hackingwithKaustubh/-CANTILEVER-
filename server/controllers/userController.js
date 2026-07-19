@@ -69,9 +69,40 @@ const markNotificationsRead = async (req, res) => {
   }
 };
 
+const getAuthorProfile = async (req, res) => {
+  try {
+    const { username } = req.params;
+    const user = await User.findOne({ username });
+    
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'Author not found' });
+    }
+
+    res.status(200).json({
+      success: true,
+      user: {
+        _id: user._id,
+        name: user.name,
+        username: user.username,
+        email: user.email,
+        profilePicture: user.profilePicture,
+        bio: user.bio,
+        location: user.location,
+        phone: user.phone,
+        website: user.website,
+        role: user.role
+      }
+    });
+  } catch (error) {
+    console.error('Get author profile error:', error.message);
+    res.status(500).json({ success: false, message: 'Server error fetching author profile' });
+  }
+};
+
 module.exports = {
   updateProfile,
   getSavedBlogs,
   getNotifications,
-  markNotificationsRead
+  markNotificationsRead,
+  getAuthorProfile
 };

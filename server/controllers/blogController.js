@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const Blog = require('../models/Blog');
 const Category = require('../models/Category');
 const User = require('../models/User');
@@ -41,11 +42,15 @@ const getBlogs = async (req, res) => {
     }
 
     if (author) {
-      const userObj = await User.findOne({ username: author });
-      if (userObj) {
-        query.author = userObj._id;
+      if (mongoose.Types.ObjectId.isValid(author)) {
+        query.author = author;
       } else {
-        return res.status(200).json({ success: true, blogs: [], totalPages: 0, currentPage: 1 });
+        const userObj = await User.findOne({ username: author });
+        if (userObj) {
+          query.author = userObj._id;
+        } else {
+          return res.status(200).json({ success: true, blogs: [], totalPages: 0, currentPage: 1 });
+        }
       }
     }
 
@@ -60,7 +65,7 @@ const getBlogs = async (req, res) => {
     const skip = (page - 1) * limit;
 
     const blogs = await Blog.find(query)
-      .populate('author', 'name username profilePicture')
+      .populate('author', 'name username profilePicture location phone website')
       .populate('category', 'name slug')
       .sort({ createdAt: -1 })
       .skip(skip)
@@ -85,7 +90,7 @@ const getTrendingBlogs = async (req, res) => {
   try {
     // Sort by views, fallback to likes count
     const blogs = await Blog.find({ status: 'published' })
-      .populate('author', 'name username profilePicture')
+      .populate('author', 'name username profilePicture location phone website')
       .populate('category', 'name slug')
       .sort({ views: -1, createdAt: -1 })
       .limit(6);
@@ -98,7 +103,7 @@ const getTrendingBlogs = async (req, res) => {
 const getBlogBySlug = async (req, res) => {
   try {
     const blog = await Blog.findOne({ slug: req.params.slug })
-      .populate('author', 'name username profilePicture bio')
+      .populate('author', 'name username profilePicture bio location phone website')
       .populate('category', 'name slug');
 
     if (!blog) {

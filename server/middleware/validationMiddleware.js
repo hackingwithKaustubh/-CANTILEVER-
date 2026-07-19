@@ -39,9 +39,15 @@ const commentValidationRules = [
   validate
 ];
 
+const commentUpdateValidationRules = [
+  body('content').trim().notEmpty().withMessage('Comment content cannot be empty'),
+  validate
+];
+
 module.exports = {
   registerValidationRules,
   loginValidationRules,
   blogValidationRules,
-  commentValidationRules
+  commentValidationRules,
+  commentUpdateValidationRules
 };

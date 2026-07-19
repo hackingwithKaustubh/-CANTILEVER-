@@ -50,11 +50,19 @@ const BlogCard = ({ blog }) => {
             alt={author?.name}
             className="h-8 w-8 rounded-full object-cover border border-slate-100 dark:border-slate-800"
           />
-          <div className="text-xs">
-            <p className="font-semibold text-slate-800 dark:text-slate-200">
+          <div className="text-xs flex-1">
+            <Link to={`/author/${author?.username}`} className="font-semibold text-slate-800 dark:text-slate-200 hover:text-violet-600 dark:hover:text-violet-400 transition-colors">
               {author?.name || 'Anonymous'}
-            </p>
-            <p className="text-slate-400 dark:text-slate-500">{formattedDate}</p>
+            </Link>
+            <div className="text-slate-400 dark:text-slate-500 flex items-center space-x-1 flex-wrap">
+              <span>{formattedDate}</span>
+              {author?.location && (
+                <>
+                  <span>•</span>
+                  <span>📍 {author.location}</span>
+                </>
+              )}
+            </div>
           </div>
         </div>
 

@@ -7,7 +7,7 @@ import RichTextEditor from '../components/RichTextEditor';
 import { Loader2, Upload, Save, ArrowLeft } from 'lucide-react';
 
 const CreateBlog = () => {
-  const { id } = useParams(); // Exists if we are editing
+  const { id } = useParams(); 
   const navigate = useNavigate();
   const { user } = useAuth();
   
@@ -36,7 +36,7 @@ const CreateBlog = () => {
       if (res.data.success) {
         setCategories(res.data.categories);
         if (!id && res.data.categories.length > 0) {
-          setCategory(res.data.categories[0]._id); // Default select first
+          setCategory(res.data.categories[0]._id); 
         }
       }
     } catch (err) {
